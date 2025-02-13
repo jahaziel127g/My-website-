@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Mode & Animation Switch</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #222;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            background-color: #222;
+            color: #fff;
+        }
+
+        /* Toggle Switch Container */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .toggle-label {
+            font-size: 1.2rem;
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background-color: #ccc;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .toggle-switch::before {
+            content: "";
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        /* Active (Dark Mode) */
+        .toggle-switch.active {
+            background-color: #666;
+        }
+
+        .toggle-switch.active::before {
+            transform: translateX(30px);
+            background-color: yellow;
+        }
+
+        /* Animation Button */
+        .animation-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #0077ff;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .animation-button:hover {
+            background-color: #0055cc;
+        }
+
+        /* Hello World Text */
+        .animated-text {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        /* Bounce Animation */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Spin Animation */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Default Animation */
+        .bounce { animation: bounce 1s infinite; }
+        .spin { animation: spin 1s infinite linear; }
+
+    </style>
+</head>
+<body>
+    <h1>Dark Mode & Animation Switch</h1>
+
+    <!-- Dark Mode Toggle -->
+    <div class="toggle-container">
+        <span class="toggle-label">Light</span>
+        <div class="toggle-switch" id="darkModeToggle"></div>
+        <span class="toggle-label">Dark</span>
+    </div>
+
+    <!-- Animation Button -->
+    <button class="animation-button" id="animationButton">Switch Animation</button>
+
+    <!-- Animated Text -->
+    <div class="animated-text bounce" id="animatedText">Hello, World!</div>
+
+    <script>
+        const toggleSwitch = document.getElementById("darkModeToggle");
+        const body = document.body;
+        const animationButton = document.getElementById("animationButton");
+        const animatedText = document.getElementById("animatedText");
+
+        // Toggle Dark Mode
+        toggleSwitch.addEventListener("click", () => {
+            body.classList.toggle("dark-mode");
+            toggleSwitch.classList.toggle("active");
+        });
+
+        // Switch Animation
+        let isBouncing = true;
+        animationButton.addEventListener("click", () => {
+            if (isBouncing) {
+                animatedText.classList.remove("bounce");
+                animatedText.classList.add("spin");
+            } else {
+                animatedText.classList.remove("spin");
+                animatedText.classList.add("bounce");
+            }
+            isBouncing = !isBouncing;
+        });
+    </script>
+</body>
+</html>
